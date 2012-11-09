@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/community/db" VERSION="20100428" COMMENT="XMLDB file for Moodle blocks/community"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="block_banners" COMMENT="Banner block">
+      <FIELDS>
+        <FIELD NAME="fileid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="url"/>
+        <FIELD NAME="url" TYPE="text"  NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="fileid" NEXT="timeinput"/>
+        <FIELD NAME="timeinput" TYPE="int" LENGTH="8" NOTNULL="true" SEQUENCE="false" PREVIOUS="url" NEXT="displayuntil"/>
+        <FIELD NAME="displayuntil" TYPE="int" LENGTH="8" SEQUENCE="false" PREVIOUS="timeinput"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="fileid"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>
