@@ -2,9 +2,7 @@
 // initialisation call from block - once for each available shared dropbox
 function animatebanners (Y, code, config){
     Y.use('yui2-carousel','yui2-animation', function(){  
-         YAHOO.util.Event.onDOMReady(
-            function(){
-                    console.log(config);
+         Y.on("domready",   function(){
                         var carousel = new YAHOO.widget.Carousel('container_'+code, {
                                 isCircular:true,
                                 carouselEl: "UL",

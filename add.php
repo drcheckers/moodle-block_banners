@@ -66,6 +66,14 @@ if($delete){
 // grab the block config data - width/height/speed etc..
 if ($configdata = $DB->get_field('block_instances', 'configdata', array('id' => $blockid))) {
             $config = unserialize(base64_decode($configdata));
+}else{
+   $config->height= 120;
+   $config->width = 600;
+   $config->maxday = 10;
+   $config->permission = 1;
+   $config->speed = 5;
+   $config->title = '';
+    
 }
 
 $mform = new banner_upload_form(null, array('data'=>$data, 'options'=>$options, 'config'=>$config));
