@@ -58,6 +58,7 @@ $fs = get_file_storage();
 
 // process any incoming delete request         
 $delete=optional_param('delete',0,PARAM_INT);
+$msg='';
 if($delete){
     deletebanner($fs,$context->id,$delete);
     $msg = "Banner Deleted!"; 
@@ -67,6 +68,7 @@ if($delete){
 if ($configdata = $DB->get_field('block_instances', 'configdata', array('id' => $blockid))) {
             $config = unserialize(base64_decode($configdata));
 }else{
+   $config=new stdClass();  
    $config->height= 120;
    $config->width = 600;
    $config->maxday = 10;
@@ -130,7 +132,7 @@ if($can_manage_banner){
 
 // display users banners - or all banners for editor
 // allow delete - purge banners greater than two years old
-$admin = has_capability('moodle/manage:user', $context, $USER->id);
+$admin = has_capability('moodle/site:config', $context, $USER->id);
 
 echo '<hr/>' . ($admin?"<h2>Admin Banner Review</h2>":"<h2>Banner Review</h2>");
 $deleteicon='<img src="'.$OUTPUT->pix_url('t/delete') . '" class="icon" alt="delete banner" />';

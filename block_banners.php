@@ -47,6 +47,7 @@ class block_banners extends block_base {
         global $PAGE,$CFG;
         require_once($CFG->libdir . '/filelib.php');
         
+        if(!isset($this->config))$this->config = new stdClass();
         $this->config->height= (isset($this->config->height)) ? $this->config->height : 120;
         $this->config->width = (isset($this->config->width)) ? $this->config->width : 600;
         $this->config->maxday = (isset($this->config->maxday)) ? $this->config->maxday : 10;
@@ -75,7 +76,7 @@ class block_banners extends block_base {
         $admin_context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
         
         // everyone has permissions or is it a course editor?
-        $can_add_banner = $this->config->config_permission>0 
+        $can_add_banner = $this->config->permission>0 
                        || has_capability('moodle/block:edit', $context, $_SESSION['USER']->id, false) || has_capability('moodle/site:config', $admin_context);
         $addlink = '<a href="'.$CFG->wwwroot.'/blocks/banners/add.php?id=' . $this->instance->id . '&returnurl=' . $return_url .'">
                     <img src="'.$CFG->wwwroot.'/blocks/banners/images/add.png" title="Manage Banner"></a>';
