@@ -59,8 +59,6 @@ class block_banners extends block_base {
             return $this->content;
         }
         
-        $PAGE->requires->js_init_call('animatebanners', array($this->instance->id,$this->config));            
-        
         $this->content = new stdClass;
         $this->content->footer = '';
         $this->content->text = $this->genBannerFrontend();
@@ -78,14 +76,14 @@ class block_banners extends block_base {
         // everyone has permissions or is it a course editor?
         $can_add_banner = $this->config->permission>0 
                        || has_capability('moodle/block:edit', $context, $_SESSION['USER']->id, false) || has_capability('moodle/site:config', $admin_context);
-        $addlink = '<a href="'.$CFG->wwwroot.'/blocks/banners/add.php?id=' . $this->instance->id . '&returnurl=' . $return_url .'">
+        $addlink = '<a href="'.$CFG->wwwroot.'/blocks/banners/add.php?courseid='.$COURSE->id .'&id=' . $this->instance->id . '&returnurl=' . $return_url .'">
                     <img src="'.$CFG->wwwroot.'/blocks/banners/images/add.png" title="Manage Banner"></a>';
         
         if($file_arr = get_banner_images($this->context->id)){
             $h = $this->config->height;
             $w = $this->config->width;
             if($can_add_banner || $this->con){
-                $add='<span style="right:-20px;top:-22px;z-index:10;position:relative;float:right;"><a href="'.$CFG->wwwroot.'/blocks/banners/add.php?id=' . $this->instance->id . '&returnurl=' . $return_url .'">' . $addlink . '</span>';
+                $add='<span style="right:-20px;top:-22px;z-index:10;position:relative;float:right;"><a href="'.$CFG->wwwroot.'/blocks/banners/add.php?courseid=' . $COURSE->id . '&id=' . $this->instance->id . '&returnurl=' . $return_url .'">' . $addlink . '</span>';
             }
         
     	    $pause = '<span style="left:-20px;top:-22px;z-index:10;position:relative;float:left;"><a href="javascript:void(0)"><img src="'.$CFG->wwwroot.'/blocks/banners/images/pause.png" id="pause_banner_'.$this->instance->id.'"></a></span>';
@@ -94,7 +92,7 @@ class block_banners extends block_base {
         
             for($i=0;$i<sizeof($file_arr);$i++){
     		    if(bannerWithinShowPeriod($file_arr[$i][3],$this->config->maxday)){
-    			    $banner_url = getBannerURL($file_arr[$i][0]);
+    	            $banner_url = getBannerURL($file_arr[$i][0]);
     			    
     			    $banner='<li>';
     			    if($banner_url!='')
@@ -109,7 +107,8 @@ class block_banners extends block_base {
             $banners[]=$banners[0];			    
     	    $speed = $this->config->speed==''?1000:$this->config->speed*1000;
     	    $element_id = 'container_'.$this->instance->id;
-    	    $html = '<div style="margin:0px auto;padding:0px;overflow:hidden;width:' . $this->config->width . 'px;height:' . ($this->config->height+2) . 'px">' .
+    	    $PAGE->requires->js_init_call('animatebanners', array($this->instance->id,$this->config));            
+            $html = '<div style="margin:0px auto;padding:0px;overflow:hidden;width:' . $this->config->width . 'px;height:' . ($this->config->height+2) . 'px">' .
                     '<div style="border:0px;height:' . $this->config->height . 'px;width:' . $this->config->width . 'px;overflow:hidden;margin:auto;z-index:0;visibility:hidden" id="'.$element_id.'" >
 				    <ul id="banner_ul" >
 				    '.implode('',$banners).'
@@ -121,7 +120,7 @@ class block_banners extends block_base {
                     . $addlink .'</div>';
             } 
         }
-
+        
     	return $html;
     }
 

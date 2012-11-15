@@ -29,16 +29,19 @@ require_once("lib.php");
 require_once("$CFG->dirroot/repository/lib.php");
             
 $blockid = optional_param('id', 0, PARAM_INT);
+$courseid = optional_param('courseid', 0, PARAM_INT);
 require_login();
 if (isguestuser()) {
     die(); 
 }
-
-$returnurl = optional_param('returnurl', '', PARAM_URL);
+ dbg();
+$returnurl = optional_param('returnurl', '', PARAM_LOCALURL);
 if (empty($returnurl)) {
     $returnurl = new moodle_url('add.php');
+}else{
+    $returnurl = new moodle_url($returnurl);
+    $returnurl->params(array('id'=>$courseid));
 }
-
 $context = get_context_instance(CONTEXT_BLOCK, $blockid);
 
 $title = 'Add banner';
@@ -50,6 +53,7 @@ $PAGE->set_pagelayout('mydashboard');
 
 $data = new stdClass();
 $data->block_id = $blockid;
+$data->courseid = $courseid;
 $data->returnurl = $returnurl;
 $data->contextid = $context->id;
 $options = array('subdirs'=>false, 'maxbytes'=>$CFG->userquota, 'maxfiles'=>-1, 'accepted_types'=> array('*.gif', '*.jpg'), 'return_types'=>FILE_INTERNAL);
@@ -58,6 +62,7 @@ $fs = get_file_storage();
 
 // process any incoming delete request         
 $delete=optional_param('delete',0,PARAM_INT);
+$msg='';
 if($delete){
     deletebanner($fs,$context->id,$delete);
     $msg = "Banner Deleted!"; 
@@ -66,6 +71,15 @@ if($delete){
 // grab the block config data - width/height/speed etc..
 if ($configdata = $DB->get_field('block_instances', 'configdata', array('id' => $blockid))) {
             $config = unserialize(base64_decode($configdata));
+}else{
+   $config=new stdClass();  
+   $config->height= 120;
+   $config->width = 600;
+   $config->maxday = 10;
+   $config->permission = 1;
+   $config->speed = 5;
+   $config->title = '';
+    
 }
 
 $mform = new banner_upload_form(null, array('data'=>$data, 'options'=>$options, 'config'=>$config));
@@ -73,6 +87,7 @@ $mform = new banner_upload_form(null, array('data'=>$data, 'options'=>$options, 
 if ($mform->is_cancelled()) {
     redirect($returnurl);
 } else if ($formdata = $mform->get_data()) {
+    print_r($formdata);
     $draftitemid = $formdata->files;
     $valid=false;    
     $files = file_get_drafarea_files($draftitemid);
@@ -122,7 +137,7 @@ if($can_manage_banner){
 
 // display users banners - or all banners for editor
 // allow delete - purge banners greater than two years old
-$admin = has_capability('moodle/manage:user', $context, $USER->id);
+$admin = has_capability('moodle/site:config', $context, $USER->id);
 
 echo '<hr/>' . ($admin?"<h2>Admin Banner Review</h2>":"<h2>Banner Review</h2>");
 $deleteicon='<img src="'.$OUTPUT->pix_url('t/delete') . '" class="icon" alt="delete banner" />';

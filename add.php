@@ -29,16 +29,19 @@ require_once("lib.php");
 require_once("$CFG->dirroot/repository/lib.php");
             
 $blockid = optional_param('id', 0, PARAM_INT);
+$courseid = optional_param('courseid', 0, PARAM_INT);
 require_login();
 if (isguestuser()) {
     die(); 
 }
-
-$returnurl = optional_param('returnurl', '', PARAM_URL);
+ dbg();
+$returnurl = optional_param('returnurl', '', PARAM_LOCALURL);
 if (empty($returnurl)) {
     $returnurl = new moodle_url('add.php');
+}else{
+    $returnurl = new moodle_url($returnurl);
+    $returnurl->params(array('id'=>$courseid));
 }
-
 $context = get_context_instance(CONTEXT_BLOCK, $blockid);
 
 $title = 'Add banner';
@@ -50,6 +53,7 @@ $PAGE->set_pagelayout('mydashboard');
 
 $data = new stdClass();
 $data->block_id = $blockid;
+$data->courseid = $courseid;
 $data->returnurl = $returnurl;
 $data->contextid = $context->id;
 $options = array('subdirs'=>false, 'maxbytes'=>$CFG->userquota, 'maxfiles'=>-1, 'accepted_types'=> array('*.gif', '*.jpg'), 'return_types'=>FILE_INTERNAL);
@@ -83,6 +87,7 @@ $mform = new banner_upload_form(null, array('data'=>$data, 'options'=>$options, 
 if ($mform->is_cancelled()) {
     redirect($returnurl);
 } else if ($formdata = $mform->get_data()) {
+    print_r($formdata);
     $draftitemid = $formdata->files;
     $valid=false;    
     $files = file_get_drafarea_files($draftitemid);

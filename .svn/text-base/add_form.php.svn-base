@@ -40,9 +40,9 @@ class banner_upload_form extends moodleform {
         $filemanager_options['maxfiles'] = 1;
         $filemanager_options['mainfile'] = false;        
         
-        $mform->addElement('html', html_writer::tag(h3,get_string('bannerformat','block_banners')));
-        $mform->addElement('html', html_writer::tag(p,get_string('width','block_banners') . ': ' . $this->_customdata['config']->width . 'px x '. get_string('height','block_banners') . ': ' . $this->_customdata['config']->height . 'px'));
-        $mform->addElement('html', html_writer::tag(p,get_string('fileformat','block_banners') . ': ' . implode(',',$filemanager_options['accepted_types']) ));
+        $mform->addElement('html', html_writer::tag('h3',get_string('bannerformat','block_banners')));
+        $mform->addElement('html', html_writer::tag('p',get_string('width','block_banners') . ': ' . $this->_customdata['config']->width . 'px x '. get_string('height','block_banners') . ': ' . $this->_customdata['config']->height . 'px'));
+        $mform->addElement('html', html_writer::tag('p',get_string('fileformat','block_banners') . ': ' . implode(',',$filemanager_options['accepted_types']) ));
         $mform->addElement('filepicker', 'files', get_string('uploadafile'), null, $filemanager_options);
         $mform->addElement('date_selector', 'timeavailablefrom', get_string('startdate','block_banners'));
         
@@ -57,6 +57,7 @@ class banner_upload_form extends moodleform {
         $mform->setDefault('urllink', '');
 
         $mform->addElement('hidden', 'id', $data->block_id);
+        $mform->addElement('hidden', 'courseid', $data->courseid);
         $mform->addElement('hidden', 'maxday', $this->_customdata['config']->maxday);
         $mform->addElement('hidden', 'height', $this->_customdata['config']->height);
         $mform->addElement('hidden', 'width', $this->_customdata['config']->width);

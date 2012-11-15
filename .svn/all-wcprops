@@ -7,19 +7,19 @@ add_form.php
 K 25
 svn:wc:ra_dav:version-url
 V 53
-/store/!svn/ver/167/trunk/blocks/banners/add_form.php
+/store/!svn/ver/173/trunk/blocks/banners/add_form.php
 END
 banners.js
 K 25
 svn:wc:ra_dav:version-url
 V 51
-/store/!svn/ver/167/trunk/blocks/banners/banners.js
+/store/!svn/ver/173/trunk/blocks/banners/banners.js
 END
 block_banners.php
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/store/!svn/ver/170/trunk/blocks/banners/block_banners.php
+/store/!svn/ver/173/trunk/blocks/banners/block_banners.php
 END
 styles.css
 K 25
@@ -31,7 +31,7 @@ version.php
 K 25
 svn:wc:ra_dav:version-url
 V 52
-/store/!svn/ver/170/trunk/blocks/banners/version.php
+/store/!svn/ver/173/trunk/blocks/banners/version.php
 END
 lib.php
 K 25
@@ -43,7 +43,7 @@ add.php
 K 25
 svn:wc:ra_dav:version-url
 V 48
-/store/!svn/ver/167/trunk/blocks/banners/add.php
+/store/!svn/ver/173/trunk/blocks/banners/add.php
 END
 edit_form.php
 K 25

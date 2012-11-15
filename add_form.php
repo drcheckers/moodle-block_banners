@@ -57,6 +57,7 @@ class banner_upload_form extends moodleform {
         $mform->setDefault('urllink', '');
 
         $mform->addElement('hidden', 'id', $data->block_id);
+        $mform->addElement('hidden', 'courseid', $data->courseid);
         $mform->addElement('hidden', 'maxday', $this->_customdata['config']->maxday);
         $mform->addElement('hidden', 'height', $this->_customdata['config']->height);
         $mform->addElement('hidden', 'width', $this->_customdata['config']->width);
