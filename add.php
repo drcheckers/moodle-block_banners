@@ -34,7 +34,6 @@ require_login();
 if (isguestuser()) {
     die(); 
 }
- dbg();
 $returnurl = optional_param('returnurl', '', PARAM_LOCALURL);
 if (empty($returnurl)) {
     $returnurl = new moodle_url('add.php');
