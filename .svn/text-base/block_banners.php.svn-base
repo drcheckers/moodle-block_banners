@@ -82,7 +82,7 @@ class block_banners extends block_base {
         if($file_arr = get_banner_images($this->context->id)){
             $h = $this->config->height;
             $w = $this->config->width;
-            if($can_add_banner || $this->con){
+            if($can_add_banner){
                 $add='<span style="right:-20px;top:-22px;z-index:10;position:relative;float:right;"><a href="'.$CFG->wwwroot.'/blocks/banners/add.php?courseid=' . $COURSE->id . '&id=' . $this->instance->id . '&returnurl=' . $return_url .'">' . $addlink . '</span>';
             }
         

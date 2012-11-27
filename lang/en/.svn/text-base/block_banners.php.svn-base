@@ -40,4 +40,6 @@ $string['upload'] = 'Upload';
 $string['banner_order'] = 'Banner Order';
 $string['title'] = 'Block Title (optional)';
 $string['speed_in_second'] = 'Speed (seconds/banner)';
+$string['bannerdeleted'] = 'Banner Deleted';
+$string['nopermission'] = 'You do not have permissions to add banners here';
 $string['permission_2_upload_banner'] = 'Permission to upload banner';

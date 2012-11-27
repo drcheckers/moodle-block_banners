@@ -34,7 +34,6 @@ require_login();
 if (isguestuser()) {
     die(); 
 }
- dbg();
 $returnurl = optional_param('returnurl', '', PARAM_LOCALURL);
 if (empty($returnurl)) {
     $returnurl = new moodle_url('add.php');
@@ -65,7 +64,7 @@ $delete=optional_param('delete',0,PARAM_INT);
 $msg='';
 if($delete){
     deletebanner($fs,$context->id,$delete);
-    $msg = "Banner Deleted!"; 
+    $msg = get_string('bannerdeleted','block_banners'); 
 }
 
 // grab the block config data - width/height/speed etc..
@@ -87,7 +86,6 @@ $mform = new banner_upload_form(null, array('data'=>$data, 'options'=>$options, 
 if ($mform->is_cancelled()) {
     redirect($returnurl);
 } else if ($formdata = $mform->get_data()) {
-    print_r($formdata);
     $draftitemid = $formdata->files;
     $valid=false;    
     $files = file_get_drafarea_files($draftitemid);
@@ -124,15 +122,19 @@ if ($mform->is_cancelled()) {
         $msg = '<h2>Your file is not the correct type/dimensions</h2>';
     }
 }
-
+ 
 echo $OUTPUT->header();
 echo $OUTPUT->box_start('generalbox');
-$can_manage_banner = has_capability('moodle/block:edit', $context, $USER->id);
-if($can_manage_banner){
+$can_add_banner =  ($config->permission>0)
+                || has_capability('moodle/block:edit', $context, $USER->id);
+if($can_add_banner){
     if($msg){
         echo html_writer::tag('h2',$msg);
     }
     $mform->display();
+}else{
+    echo html_writer::tag('h2',get_string('nopermission','block_banners'));
+    
 }
 
 // display users banners - or all banners for editor

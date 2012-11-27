@@ -9,3 +9,9 @@ svn:wc:ra_dav:version-url
 V 55
 /store/!svn/ver/169/trunk/blocks/banners/db/install.xml
 END
+access.php
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/store/!svn/ver/179/trunk/blocks/banners/db/access.php
+END
