@@ -120,19 +120,10 @@ function bannerWithinShowPeriod($banner_create_time,$maxday){
 	return true;
 
 }
-
-function handleBannerURL($fileid,$url){
-	global $DB;
-	$sql = "INSERT INTO mdl_block_banners 
-		values('".$fileid."','".$url."',now(),now()) 
-		ON DUPLICATE KEY UPDATE url = '".$url."', timemodified = now()";	
-	//print_r($sql);die;
-	$DB->execute($sql);
-}
-
+  
 function getBannerURL($fileid){
 	global $DB;
-	$banner_url_obj = $DB->get_fieldset_sql("SELECT url FROM mdl_block_banners WHERE fileid = ".$fileid);
+	$banner_url_obj = $DB->get_fieldset_sql("SELECT url FROM {block_banners} WHERE fileid = ".$fileid);
 	return $banner_url_obj[0];
 }
 			

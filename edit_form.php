@@ -45,11 +45,11 @@ class block_banners_edit_form extends block_edit_form {
         $mform->setType('config_maxday', PARAM_INT); 
         $mform->setDefault('config_maxday', 10);
         
-        $mform->addElement('select', 'config_permission', get_string('permission_2_upload_banner', 'block_banners'), array(0=>'Editors',1=>'All'),$attributes);
+        $mform->addElement('select', 'config_permission', get_string('permission_2_upload_banner', 'block_banners'), array(0=>'Editors',1=>'All'));
 		$mform->setType('config_permission', PARAM_INT); 
         $mform->setDefault('config_permission', 1);
         
-        $mform->addElement('text', 'config_speed', get_string('speed_in_second', 'block_banners'), $attributes);
+        $mform->addElement('text', 'config_speed', get_string('speed_in_second', 'block_banners'));
         $mform->setType('config_speed', PARAM_INT); 
         $mform->setDefault('config_speed', 5);
         
