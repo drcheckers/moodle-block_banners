@@ -3,12 +3,12 @@
 function animatebanners (Y, code, config){
     Y.use('yui2-carousel','yui2-animation', function(){  
          Y.on("domready",   function(){
-                        var carousel = new YAHOO.widget.Carousel('container_'+code, {
+                        var carousel = new Y.YUI2.widget.Carousel('container_'+code, {
                                 isCircular:true,
                                 carouselEl: "UL",
                                 numVisible: 1,
                                 autoPlayInterval: config.speed*1000,
-                                animation: {speed:1,effect:YAHOO.util.Easing.easeOut}            
+                                animation: {speed:1,effect:Y.YUI2.util.Easing.easeOut}            
                         });
                         carousel.render();
                         carousel.startAutoPlay();  
@@ -21,7 +21,7 @@ function animatebanners (Y, code, config){
                             var y = this._getNumPages();
                             if (x==y-1){ 
                                 var animation = this.get('animation');
-                                var animationObj = { speed: 0, effect: YAHOO.util.Easing.easeNone };
+                                var animationObj = { speed: 0, effect: Y.YUI2.util.Easing.easeNone };
                                 this.set('animation', animationObj);
                                 this.set('selectedItem', 0);
                                 this.scrollTo();
@@ -39,7 +39,7 @@ function animatebanners (Y, code, config){
                                 y=carousel.get("numItems");
                                 if (x==0){
                                     var animation = carousel.get('animation');
-                                    var animationObj = { speed: 0, effect: YAHOO.util.Easing.easeNone };
+                                    var animationObj = { speed: 0, effect: Y.YUI2.util.Easing.easeNone };
                                     carousel.set('animation', animationObj);
                                     carousel.set('selectedItem', y-1);
                                     carousel.scrollTo();
@@ -57,7 +57,7 @@ function animatebanners (Y, code, config){
                                 y=carousel.get("numItems");
                                 if (x==y-1){
                                     var animation = carousel.get('animation');
-                                    var animationObj = { speed: 0, effect: YAHOO.util.Easing.easeNone };
+                                    var animationObj = { speed: 0, effect: Y.YUI2.util.Easing.easeNone };
                                     carousel.set('animation', animationObj);
                                     carousel.set('selectedItem', 0);
                                     carousel.scrollTo();
